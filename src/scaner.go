@@ -1,4 +1,4 @@
-package src
+package main
 
 import (
 	"bufio"
@@ -32,7 +32,8 @@ func (s *Scanner) Scan() (tok Token, lit string) {
 
 	if isWhitespace(ch) {
 		s.unread()
-		return s.scanWhitespace()
+		s.missWhitespace()
+		return s.Scan()
 	} else if isNewLine(ch) {
 		s.unread()
 		return s.scanNewLine()
@@ -74,22 +75,15 @@ func (s *Scanner) Scan() (tok Token, lit string) {
 	return ILLEGAL, string(ch)
 }
 
-func (s *Scanner) scanWhitespace() (tok Token, lit string) {
-	var buf bytes.Buffer
-	buf.WriteRune(s.read())
-
+func (s *Scanner) missWhitespace() {
 	for {
 		if ch := s.read(); ch == eof {
 			break
 		} else if !isWhitespace(ch) {
 			s.unread()
 			break
-		} else {
-			buf.WriteRune(ch)
 		}
 	}
-
-	return WS, buf.String()
 }
 
 func (s *Scanner) scanNewLine() (tok Token, lit string) {

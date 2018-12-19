@@ -1,11 +1,10 @@
-package src
+package main
 
 type Token int
 
 const (
 	ILLEGAL Token = iota
 	EOF
-	WS
 	NEW_LINE
 
 	IMPORT
