@@ -21,6 +21,8 @@ const (
 	SEMICOLON
 	LEFT_CURLY_BRACKET
 	RIGHT_CURLY_BRACKET
+
+	SOLIDUS
 )
 
 func isWhitespace(ch rune) bool {

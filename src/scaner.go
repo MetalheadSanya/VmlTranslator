@@ -62,6 +62,13 @@ func (s *Scanner) Scan() (tok Token, lit string) {
 		return SEMICOLON, ";"
 	case ':':
 		return COLON, ":"
+	case '/':
+		s.unread()
+		if s.missComment() {
+			return s.Scan()
+		} else {
+			return SOLIDUS, "/"
+		}
 	}
 
 	return ILLEGAL, string(ch)
@@ -199,4 +206,40 @@ func (s *Scanner) scanString() (tok Token, lit string) {
 	} else {
 		return ILLEGAL, buf.String()
 	}
+}
+
+func (s *Scanner) missComment() bool {
+	s.read()
+
+	ch := s.read()
+
+	switch ch {
+	case '/':
+		for {
+			ch = s.read()
+			if ch == eof {
+				return true
+			} else if ch == '\n' {
+				s.unread()
+				return true
+			}
+		}
+	case '*':
+		for {
+			ch = s.read()
+			if ch == eof {
+				return true
+			} else if ch == '*' {
+				ch = s.read()
+				if ch == '/' {
+					return true
+				}
+				s.unread()
+			}
+		}
+	}
+
+	s.unread()
+
+	return false
 }
