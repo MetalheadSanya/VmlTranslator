@@ -33,8 +33,8 @@ func TestLexerChildObjectInProperty(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != INTEGER || lex != "100" {
-		t.Errorf("%s is not INTEGER(100) token", lex)
+	if token, lex := s.Scan(); token != INT_LITERAL || lex != "100" {
+		t.Errorf("%s is not INT_LITERAL(100) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)
@@ -46,8 +46,8 @@ func TestLexerChildObjectInProperty(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != INTEGER || lex != "100" {
-		t.Errorf("%s is not INTEGER(100) token", lex)
+	if token, lex := s.Scan(); token != INT_LITERAL || lex != "100" {
+		t.Errorf("%s is not INT_LITERAL(100) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)
@@ -81,8 +81,8 @@ func TestLexerChildObjectInProperty(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != DOUBLE || lex != "0.0" {
-		t.Errorf("%s is not DOUBLE(0.0) token", lex)
+	if token, lex := s.Scan(); token != DOUBLE_LITERAL || lex != "0.0" {
+		t.Errorf("%s is not DOUBLE_LITERAL(0.0) token", lex)
 	}
 	if token, lex := s.Scan(); token != SEMICOLON {
 		t.Errorf("%s is not SEMICOLON token", lex)
@@ -93,8 +93,8 @@ func TestLexerChildObjectInProperty(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING || lex != "yellow" {
-		t.Errorf("%s is not STRING(yellow) token", lex)
+	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "yellow" {
+		t.Errorf("%s is not STRING_LITERAL(yellow) token", lex)
 	}
 	if token, lex := s.Scan(); token != RIGHT_CURLY_BRACKET {
 		t.Errorf("%s is not LEFT_CURLY_BRACKET token", lex)
@@ -115,8 +115,8 @@ func TestLexerChildObjectInProperty(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != DOUBLE || lex != "1.0" {
-		t.Errorf("%s is not DOUBLE(1.0) token", lex)
+	if token, lex := s.Scan(); token != DOUBLE_LITERAL || lex != "1.0" {
+		t.Errorf("%s is not DOUBLE_LITERAL(1.0) token", lex)
 	}
 	if token, lex := s.Scan(); token != SEMICOLON {
 		t.Errorf("%s is not SEMICOLON token", lex)
@@ -127,8 +127,8 @@ func TestLexerChildObjectInProperty(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING || lex != "green" {
-		t.Errorf("%s is not STRING(green) token", lex)
+	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "green" {
+		t.Errorf("%s is not STRING_LITERAL(green) token", lex)
 	}
 	if token, lex := s.Scan(); token != RIGHT_CURLY_BRACKET {
 		t.Errorf("%s is not LEFT_CURLY_BRACKET token", lex)
@@ -181,8 +181,8 @@ func TestLexerChildObject(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != INTEGER || lex != "200" {
-		t.Errorf("%s is not INTEGER(200) token", lex)
+	if token, lex := s.Scan(); token != INT_LITERAL || lex != "200" {
+		t.Errorf("%s is not INT_LITERAL(200) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)
@@ -194,8 +194,8 @@ func TestLexerChildObject(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != INTEGER || lex != "200" {
-		t.Errorf("%s is not INTEGER(200) token", lex)
+	if token, lex := s.Scan(); token != INT_LITERAL || lex != "200" {
+		t.Errorf("%s is not INT_LITERAL(200) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)
@@ -207,8 +207,8 @@ func TestLexerChildObject(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING || lex != "red" {
-		t.Errorf("%s is not STRING(red) token", lex)
+	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "red" {
+		t.Errorf("%s is not STRING_LITERAL(red) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)
@@ -249,8 +249,8 @@ func TestLexerChildObject(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING || lex != "Hello, QML!" {
-		t.Errorf("%s is not STRING(Hello, QML!) token", lex)
+	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "Hello, QML!" {
+		t.Errorf("%s is not STRING_LITERAL(Hello, QML!) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)

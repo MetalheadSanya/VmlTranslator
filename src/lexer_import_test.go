@@ -15,8 +15,8 @@ func TestLexerImportModule(t *testing.T) {
 	if token, lex := s.Scan(); token != IDENTIFIER || lex != "QtQuick" {
 		t.Errorf("%s is not IDENTIFIER token", lex)
 	}
-	if token, lex := s.Scan(); token != DOUBLE || lex != "2.0" {
-		t.Errorf("%s is not DOUBLE(2.0) token", lex)
+	if token, lex := s.Scan(); token != DOUBLE_LITERAL || lex != "2.0" {
+		t.Errorf("%s is not DOUBLE_LITERAL(2.0) token", lex)
 	}
 	if token, lex := s.Scan(); token != EOF || lex != "" {
 		t.Errorf("%s is not EOF token", lex)
@@ -39,8 +39,8 @@ func TestLexerImportModuleFull(t *testing.T) {
 	if token, lex := s.Scan(); token != IDENTIFIER || lex != "LocalStorage" {
 		t.Errorf("%s is not IDENTIFIER(LocalStorage) token", lex)
 	}
-	if token, lex := s.Scan(); token != DOUBLE || lex != "2.0" {
-		t.Errorf("%s is not DOUBLE token", lex)
+	if token, lex := s.Scan(); token != DOUBLE_LITERAL || lex != "2.0" {
+		t.Errorf("%s is not DOUBLE_LITERAL(2.0) token", lex)
 	}
 	if token, lex := s.Scan(); token != AS || lex != "as" {
 		t.Errorf("%s is not AS token", lex)
@@ -60,8 +60,8 @@ func TestLexerImportDirectory(t *testing.T) {
 	if token, lex := s.Scan(); token != IMPORT || lex != "import" {
 		t.Errorf("%s is not IMPORT token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING || lex != "directory" {
-		t.Errorf("%s is not STRING(directory) token", lex)
+	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "directory" {
+		t.Errorf("%s is not STRING_LITERAL(directory) token", lex)
 	}
 	if token, lex := s.Scan(); token != EOF || lex != "" {
 		t.Errorf("%s is not EOF token", lex)
@@ -75,8 +75,8 @@ func TestLexerImportDirectoryFull(t *testing.T) {
 	if token, lex := s.Scan(); token != IMPORT || lex != "import" {
 		t.Errorf("%s is not IMPORT token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING || lex != "file.js" {
-		t.Errorf("%s is not STRING(file.js) token", lex)
+	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "file.js" {
+		t.Errorf("%s is not STRING_LITERAL(file.js) token", lex)
 	}
 	if token, lex := s.Scan(); token != AS || lex != "as" {
 		t.Errorf("%s is not AS token", lex)

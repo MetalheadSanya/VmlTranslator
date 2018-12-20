@@ -28,8 +28,8 @@ func TestLexerClass(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != DOUBLE || lex != "100.0" {
-		t.Errorf("%s is not DOUBLE(100.0) token", lex)
+	if token, lex := s.Scan(); token != DOUBLE_LITERAL || lex != "100.0" {
+		t.Errorf("%s is not DOUBLE_LITERAL(100.0) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)
@@ -40,8 +40,8 @@ func TestLexerClass(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != INTEGER || lex != "10" {
-		t.Errorf("%s is not INTEGER(10) token", lex)
+	if token, lex := s.Scan(); token != INT_LITERAL || lex != "10" {
+		t.Errorf("%s is not INT_LITERAL(10) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)
@@ -52,8 +52,8 @@ func TestLexerClass(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING || lex != "red" {
-		t.Errorf("%s is not STRING(red) token", lex)
+	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "red" {
+		t.Errorf("%s is not STRING_LITERAL(red) token", lex)
 	}
 	if token, lex := s.Scan(); token != NEW_LINE {
 		t.Errorf("%s is not NEW_LINE token", lex)
@@ -82,8 +82,8 @@ func TestLexerClassSingleLine(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != DOUBLE || lex != "100.0" {
-		t.Errorf("%s is not DOUBLE(100.0) token", lex)
+	if token, lex := s.Scan(); token != DOUBLE_LITERAL || lex != "100.0" {
+		t.Errorf("%s is not DOUBLE_LITERAL(100.0) token", lex)
 	}
 	if token, lex := s.Scan(); token != SEMICOLON {
 		t.Errorf("%s is not SEMICOLON token", lex)
@@ -94,8 +94,8 @@ func TestLexerClassSingleLine(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != INTEGER || lex != "10" {
-		t.Errorf("%s is not INTEGER(10) token", lex)
+	if token, lex := s.Scan(); token != INT_LITERAL || lex != "10" {
+		t.Errorf("%s is not INT_LITERAL(10) token", lex)
 	}
 	if token, lex := s.Scan(); token != SEMICOLON {
 		t.Errorf("%s is not SEMICOLON token", lex)
@@ -106,8 +106,8 @@ func TestLexerClassSingleLine(t *testing.T) {
 	if token, lex := s.Scan(); token != COLON {
 		t.Errorf("%s is not COLON token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING || lex != "red" {
-		t.Errorf("%s is not STRING(red) token", lex)
+	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "red" {
+		t.Errorf("%s is not STRING_LITERAL(red) token", lex)
 	}
 	if token, lex := s.Scan(); token != RIGHT_CURLY_BRACKET {
 		t.Errorf("%s is not RIGHT_CURLY_BRACKET token", lex)

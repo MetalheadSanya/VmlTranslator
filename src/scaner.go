@@ -124,6 +124,28 @@ func (s *Scanner) scanIdentifier() (tok Token, lit string) {
 		return IMPORT, buf.String()
 	case "as":
 		return AS, buf.String()
+	case "property":
+		return PROPERTY, buf.String()
+	case "alias":
+		return ALIAS, buf.String()
+	case "readonly":
+		return READONLY, buf.String()
+	case "signal":
+		return SIGNAL, buf.String()
+	case "enum":
+		return ENUM, buf.String()
+	case "int":
+		return INT_TYPE, buf.String()
+	case "bool":
+		return BOOL_TYPE, buf.String()
+	case "double":
+		return DOUBLE_TYPE, buf.String()
+	case "real":
+		return REAL_TYPE, buf.String()
+	case "string":
+		return STRING_TYPE, buf.String()
+	case "var":
+		return VAR_TYPE, buf.String()
 	}
 
 	return IDENTIFIER, buf.String()
@@ -162,9 +184,9 @@ func (s *Scanner) scanNumber() (tok Token, lit string) {
 	if brokenToken {
 		return ILLEGAL, buf.String()
 	} else if wasDot {
-		return DOUBLE, buf.String()
+		return DOUBLE_LITERAL, buf.String()
 	} else {
-		return INTEGER, buf.String()
+		return INT_LITERAL, buf.String()
 	}
 }
 
@@ -196,7 +218,7 @@ func (s *Scanner) scanString() (tok Token, lit string) {
 	}
 
 	if wasQuotationMark {
-		return STRING, buf.String()
+		return STRING_LITERAL, buf.String()
 	} else {
 		return ILLEGAL, buf.String()
 	}
