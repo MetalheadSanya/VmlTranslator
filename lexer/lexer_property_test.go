@@ -1,6 +1,7 @@
-package lexer
+package lexer_test
 
 import (
+	"github.com/MetalheadSanya/VmlTranslator/lexer"
 	"strings"
 	"testing"
 )
@@ -11,44 +12,44 @@ func TestLexerProperty(t *testing.T) {
     property color nextColor
 }`
 	r := strings.NewReader(str)
-	s := VmlScanner(r)
-	if token, lex := s.Scan(); token != Identifier || lex != "Rectangle" {
+	s := lexer.VmlScanner(r)
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "Rectangle" {
 		t.Errorf("%s is not Identifier(Rectangle) token", lex)
 	}
-	if token, lex := s.Scan(); token != LeftCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.LeftCurlyBracket {
 		t.Errorf("%s is not LeftCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "color" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "color" {
 		t.Errorf("%s is not Identifier(color) token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "previousColor" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "previousColor" {
 		t.Errorf("%s is not Identifier(previousColor) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "color" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "color" {
 		t.Errorf("%s is not Identifier(color) token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "nextColor" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "nextColor" {
 		t.Errorf("%s is not Identifier(nextColor) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != RightCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.RightCurlyBracket {
 		t.Errorf("%s is not RightCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != Eof || lex != "" {
+	if token, lex := s.Scan(); token != lexer.Eof || lex != "" {
 		t.Errorf("%s is not Eof token", lex)
 	}
 }
@@ -58,38 +59,38 @@ func TestLexerPropertyWithValue(t *testing.T) {
     property color nextColor: "blue"
 }`
 	r := strings.NewReader(str)
-	s := VmlScanner(r)
-	if token, lex := s.Scan(); token != Identifier || lex != "Rectangle" {
+	s := lexer.VmlScanner(r)
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "Rectangle" {
 		t.Errorf("%s is not Identifier(Rectangle) token", lex)
 	}
-	if token, lex := s.Scan(); token != LeftCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.LeftCurlyBracket {
 		t.Errorf("%s is not LeftCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "color" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "color" {
 		t.Errorf("%s is not Identifier(color) token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "nextColor" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "nextColor" {
 		t.Errorf("%s is not Identifier(previousColor) token", lex)
 	}
-	if token, lex := s.Scan(); token != Colon {
+	if token, lex := s.Scan(); token != lexer.Colon {
 		t.Errorf("%s is not Colon token", lex)
 	}
-	if token, lex := s.Scan(); token != StringLiteral || lex != "blue" {
+	if token, lex := s.Scan(); token != lexer.StringLiteral || lex != "blue" {
 		t.Errorf("%s is not StringLiteral(blue) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != RightCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.RightCurlyBracket {
 		t.Errorf("%s is not RightCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != Eof || lex != "" {
+	if token, lex := s.Scan(); token != lexer.Eof || lex != "" {
 		t.Errorf("%s is not Eof token", lex)
 	}
 }
@@ -99,50 +100,50 @@ func TestLexerPropertyReadonly(t *testing.T) {
     property alias color: rectangle.border.color
 }`
 	r := strings.NewReader(str)
-	s := VmlScanner(r)
-	if token, lex := s.Scan(); token != Identifier || lex != "Rectangle" {
+	s := lexer.VmlScanner(r)
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "Rectangle" {
 		t.Errorf("%s is not Identifier(Rectangle) token", lex)
 	}
-	if token, lex := s.Scan(); token != LeftCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.LeftCurlyBracket {
 		t.Errorf("%s is not LeftCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != Alias {
+	if token, lex := s.Scan(); token != lexer.Alias {
 		t.Errorf("%s is not Alias token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "color" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "color" {
 		t.Errorf("%s is not Identifier(color) token", lex)
 	}
-	if token, lex := s.Scan(); token != Colon {
+	if token, lex := s.Scan(); token != lexer.Colon {
 		t.Errorf("%s is not Colon token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "rectangle" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "rectangle" {
 		t.Errorf("%s is not Identifier(rectangle) token", lex)
 	}
-	if token, lex := s.Scan(); token != Dot {
+	if token, lex := s.Scan(); token != lexer.Dot {
 		t.Errorf("%s is not Dot token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "border" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "border" {
 		t.Errorf("%s is not Identifier(border) token", lex)
 	}
-	if token, lex := s.Scan(); token != Dot {
+	if token, lex := s.Scan(); token != lexer.Dot {
 		t.Errorf("%s is not Dot token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "color" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "color" {
 		t.Errorf("%s is not Identifier(color) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != RightCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.RightCurlyBracket {
 		t.Errorf("%s is not RightCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != Eof || lex != "" {
+	if token, lex := s.Scan(); token != lexer.Eof || lex != "" {
 		t.Errorf("%s is not Eof token", lex)
 	}
 }
@@ -152,41 +153,41 @@ func TestLexerPropertyAlias(t *testing.T) {
     readonly property int someNumber: 10
 }`
 	r := strings.NewReader(str)
-	s := VmlScanner(r)
-	if token, lex := s.Scan(); token != Identifier || lex != "Rectangle" {
+	s := lexer.VmlScanner(r)
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "Rectangle" {
 		t.Errorf("%s is not Identifier(Rectangle) token", lex)
 	}
-	if token, lex := s.Scan(); token != LeftCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.LeftCurlyBracket {
 		t.Errorf("%s is not LeftCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Readonly {
+	if token, lex := s.Scan(); token != lexer.Readonly {
 		t.Errorf("%s is not Readonly token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != IntType {
+	if token, lex := s.Scan(); token != lexer.IntType {
 		t.Errorf("%s is not IntType token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "someNumber" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "someNumber" {
 		t.Errorf("%s is not Identifier(someNumber) token", lex)
 	}
-	if token, lex := s.Scan(); token != Colon {
+	if token, lex := s.Scan(); token != lexer.Colon {
 		t.Errorf("%s is not Colon token", lex)
 	}
-	if token, lex := s.Scan(); token != IntLiteral || lex != "10" {
+	if token, lex := s.Scan(); token != lexer.IntLiteral || lex != "10" {
 		t.Errorf("%s is not IntLiteral(10) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != RightCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.RightCurlyBracket {
 		t.Errorf("%s is not RightCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != Eof || lex != "" {
+	if token, lex := s.Scan(); token != lexer.Eof || lex != "" {
 		t.Errorf("%s is not Eof token", lex)
 	}
 }

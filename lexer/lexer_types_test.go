@@ -1,6 +1,7 @@
-package lexer
+package lexer_test
 
 import (
+	"github.com/MetalheadSanya/VmlTranslator/lexer"
 	"strings"
 	"testing"
 )
@@ -15,92 +16,92 @@ func TestLexerTypes(t *testing.T) {
 	property var varProperty
 }`
 	r := strings.NewReader(str)
-	s := VmlScanner(r)
-	if token, lex := s.Scan(); token != Identifier || lex != "Rectangle" {
+	s := lexer.VmlScanner(r)
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "Rectangle" {
 		t.Errorf("%s is not Identifier(Rectangle) token", lex)
 	}
-	if token, lex := s.Scan(); token != LeftCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.LeftCurlyBracket {
 		t.Errorf("%s is not LeftCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != IntType {
+	if token, lex := s.Scan(); token != lexer.IntType {
 		t.Errorf("%s is not IntType token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "intProperty" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "intProperty" {
 		t.Errorf("%s is not Identifier(intProperty) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != StringType {
+	if token, lex := s.Scan(); token != lexer.StringType {
 		t.Errorf("%s is not StringType token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "stringProperty" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "stringProperty" {
 		t.Errorf("%s is not Identifier(stringProperty) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != BoolType {
+	if token, lex := s.Scan(); token != lexer.BoolType {
 		t.Errorf("%s is not BoolType token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "boolProperty" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "boolProperty" {
 		t.Errorf("%s is not Identifier(boolProperty) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != DoubleType {
+	if token, lex := s.Scan(); token != lexer.DoubleType {
 		t.Errorf("%s is not DoubleType token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "doubleProperty" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "doubleProperty" {
 		t.Errorf("%s is not Identifier(doubleProperty) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != RealType {
+	if token, lex := s.Scan(); token != lexer.RealType {
 		t.Errorf("%s is not RealType token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "realProperty" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "realProperty" {
 		t.Errorf("%s is not Identifier(realProperty) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != Property {
+	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)
 	}
-	if token, lex := s.Scan(); token != VarType {
+	if token, lex := s.Scan(); token != lexer.VarType {
 		t.Errorf("%s is not VarType token", lex)
 	}
-	if token, lex := s.Scan(); token != Identifier || lex != "varProperty" {
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "varProperty" {
 		t.Errorf("%s is not Identifier(varProperty) token", lex)
 	}
-	if token, lex := s.Scan(); token != NewLine {
+	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != RightCurlyBracket {
+	if token, lex := s.Scan(); token != lexer.RightCurlyBracket {
 		t.Errorf("%s is not RightCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != Eof || lex != "" {
+	if token, lex := s.Scan(); token != lexer.Eof || lex != "" {
 		t.Errorf("%s is not Eof token", lex)
 	}
 }
