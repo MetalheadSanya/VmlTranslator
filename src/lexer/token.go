@@ -1,4 +1,4 @@
-package main
+package lexer
 
 type Token int
 
@@ -27,6 +27,7 @@ const (
 	IntType
 	StringType
 	VarType
+	ListType
 
 	Dot
 	Comma
@@ -36,6 +37,10 @@ const (
 	RightParenthesis
 	LeftCurlyBracket
 	RightCurlyBracket
+	LessThanSign
+	MoreThanSign
+	LeftSquareBracket
+	RightSquareBracket
 
 	Solidus
 )

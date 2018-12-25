@@ -1,4 +1,4 @@
-package main
+package lexer
 
 import (
 	"bufio"
@@ -65,6 +65,14 @@ func (s *Scanner) Scan() (tok Token, lit string) {
 		return LeftCurlyBracket, "{"
 	case '}':
 		return RightCurlyBracket, "}"
+	case '[':
+		return LeftSquareBracket, "["
+	case ']':
+		return RightSquareBracket, "]"
+	case '<':
+		return LessThanSign, "<"
+	case '>':
+		return MoreThanSign, ">"
 	case ';':
 		return Semicolon, ";"
 	case ':':
@@ -152,6 +160,8 @@ func (s *Scanner) scanIdentifier() (tok Token, lit string) {
 		return StringType, buf.String()
 	case "var":
 		return VarType, buf.String()
+	case "list":
+		return ListType, buf.String()
 	}
 
 	return Identifier, buf.String()
