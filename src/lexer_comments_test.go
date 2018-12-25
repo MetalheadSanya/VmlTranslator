@@ -13,56 +13,56 @@ func TestLexerSingleLineComments(t *testing.T) {
 }/////////`
 	r := strings.NewReader(str)
 	s := VmlScanner(r)
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "Rectangle" {
-		t.Errorf("%s is not IDENTIFIER(Rectangle) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "Rectangle" {
+		t.Errorf("%s is not Identifier(Rectangle) token", lex)
 	}
-	if token, lex := s.Scan(); token != LEFT_CURLY_BRACKET {
-		t.Errorf("%s is not LEFT_CURLY_BRACKET token", lex)
+	if token, lex := s.Scan(); token != LeftCurlyBracket {
+		t.Errorf("%s is not LeftCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "width" {
-		t.Errorf("%s is not IDENTIFIER(width) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "width" {
+		t.Errorf("%s is not Identifier(width) token", lex)
 	}
-	if token, lex := s.Scan(); token != COLON {
-		t.Errorf("%s is not COLON token", lex)
+	if token, lex := s.Scan(); token != Colon {
+		t.Errorf("%s is not Colon token", lex)
 	}
-	if token, lex := s.Scan(); token != DOUBLE_LITERAL || lex != "100.0" {
-		t.Errorf("%s is not DOUBLE_LITERAL(100.0) token", lex)
+	if token, lex := s.Scan(); token != DoubleLiteral || lex != "100.0" {
+		t.Errorf("%s is not DoubleLiteral(100.0) token", lex)
 	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "height" {
-		t.Errorf("%s is not IDENTIFIER(height) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "height" {
+		t.Errorf("%s is not Identifier(height) token", lex)
 	}
-	if token, lex := s.Scan(); token != COLON {
-		t.Errorf("%s is not COLON token", lex)
+	if token, lex := s.Scan(); token != Colon {
+		t.Errorf("%s is not Colon token", lex)
 	}
-	if token, lex := s.Scan(); token != INT_LITERAL || lex != "10" {
-		t.Errorf("%s is not INT_LITERAL(10) token", lex)
+	if token, lex := s.Scan(); token != IntLiteral || lex != "10" {
+		t.Errorf("%s is not IntLiteral(10) token", lex)
 	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "color" {
-		t.Errorf("%s is not IDENTIFIER(color) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "color" {
+		t.Errorf("%s is not Identifier(color) token", lex)
 	}
-	if token, lex := s.Scan(); token != COLON {
-		t.Errorf("%s is not COLON token", lex)
+	if token, lex := s.Scan(); token != Colon {
+		t.Errorf("%s is not Colon token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "red" {
-		t.Errorf("%s is not STRING_LITERAL(red) token", lex)
+	if token, lex := s.Scan(); token != StringLiteral || lex != "red" {
+		t.Errorf("%s is not StringLiteral(red) token", lex)
 	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != RIGHT_CURLY_BRACKET {
-		t.Errorf("%s is not RIGHT_CURLY_BRACKET token", lex)
+	if token, lex := s.Scan(); token != RightCurlyBracket {
+		t.Errorf("%s is not RightCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != EOF || lex != "" {
-		t.Errorf("%s is not EOF token", lex)
+	if token, lex := s.Scan(); token != Eof || lex != "" {
+		t.Errorf("%s is not Eof token", lex)
 	}
 }
 
@@ -74,43 +74,43 @@ func TestLexerMultilineComments(t *testing.T) {
 }`
 	r := strings.NewReader(str)
 	s := VmlScanner(r)
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "Rectangle" {
-		t.Errorf("%s is not IDENTIFIER(Rectangle) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "Rectangle" {
+		t.Errorf("%s is not Identifier(Rectangle) token", lex)
 	}
-	if token, lex := s.Scan(); token != LEFT_CURLY_BRACKET {
-		t.Errorf("%s is not LEFT_CURLY_BRACKET token", lex)
+	if token, lex := s.Scan(); token != LeftCurlyBracket {
+		t.Errorf("%s is not LeftCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "width" {
-		t.Errorf("%s is not IDENTIFIER(width) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "width" {
+		t.Errorf("%s is not Identifier(width) token", lex)
 	}
-	if token, lex := s.Scan(); token != COLON {
-		t.Errorf("%s is not COLON token", lex)
+	if token, lex := s.Scan(); token != Colon {
+		t.Errorf("%s is not Colon token", lex)
 	}
-	if token, lex := s.Scan(); token != DOUBLE_LITERAL || lex != "100.0" {
-		t.Errorf("%s is not DOUBLE_LITERAL(100.0) token", lex)
+	if token, lex := s.Scan(); token != DoubleLiteral || lex != "100.0" {
+		t.Errorf("%s is not DoubleLiteral(100.0) token", lex)
 	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "color" {
-		t.Errorf("%s is not IDENTIFIER(color) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "color" {
+		t.Errorf("%s is not Identifier(color) token", lex)
 	}
-	if token, lex := s.Scan(); token != COLON {
-		t.Errorf("%s is not COLON token", lex)
+	if token, lex := s.Scan(); token != Colon {
+		t.Errorf("%s is not Colon token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING_LITERAL || lex != "red" {
-		t.Errorf("%s is not STRING_LITERAL(red) token", lex)
+	if token, lex := s.Scan(); token != StringLiteral || lex != "red" {
+		t.Errorf("%s is not StringLiteral(red) token", lex)
 	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
-	if token, lex := s.Scan(); token != RIGHT_CURLY_BRACKET {
-		t.Errorf("%s is not RIGHT_CURLY_BRACKET token", lex)
+	if token, lex := s.Scan(); token != RightCurlyBracket {
+		t.Errorf("%s is not RightCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != EOF || lex != "" {
-		t.Errorf("%s is not EOF token", lex)
+	if token, lex := s.Scan(); token != Eof || lex != "" {
+		t.Errorf("%s is not Eof token", lex)
 	}
 }

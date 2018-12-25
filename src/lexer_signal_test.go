@@ -13,77 +13,77 @@ func TestLexerSignal(t *testing.T) {
 }`
 	r := strings.NewReader(str)
 	s := VmlScanner(r)
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "Item" {
-		t.Errorf("%s is not IDENTIFIER(Item) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "Item" {
+		t.Errorf("%s is not Identifier(Item) token", lex)
 	}
-	if token, lex := s.Scan(); token != LEFT_CURLY_BRACKET {
-		t.Errorf("%s is not LEFT_CURLY_BRACKET token", lex)
+	if token, lex := s.Scan(); token != LeftCurlyBracket {
+		t.Errorf("%s is not LeftCurlyBracket token", lex)
 	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
-	}
-
-	if token, lex := s.Scan(); token != SIGNAL {
-		t.Errorf("%s is not SIGNAL token", lex)
-	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "clicked" {
-		t.Errorf("%s is not IDENTIFIER(clicked) token", lex)
-	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
 
-	if token, lex := s.Scan(); token != SIGNAL {
-		t.Errorf("%s is not SIGNAL token", lex)
+	if token, lex := s.Scan(); token != Signal {
+		t.Errorf("%s is not Signal token", lex)
 	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "hovered" {
-		t.Errorf("%s is not IDENTIFIER(hovered) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "clicked" {
+		t.Errorf("%s is not Identifier(clicked) token", lex)
 	}
-	if token, lex := s.Scan(); token != LEFT_PARENTHESIS {
-		t.Errorf("%s is not SIGNAL token", lex)
-	}
-	if token, lex := s.Scan(); token != RIGHT_PARENTHESIS {
-		t.Errorf("%s is not SIGNAL token", lex)
-	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
 
-	if token, lex := s.Scan(); token != SIGNAL {
-		t.Errorf("%s is not SIGNAL token", lex)
+	if token, lex := s.Scan(); token != Signal {
+		t.Errorf("%s is not Signal token", lex)
 	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "actionPerformed" {
-		t.Errorf("%s is not IDENTIFIER(actionPerformed) token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "hovered" {
+		t.Errorf("%s is not Identifier(hovered) token", lex)
 	}
-	if token, lex := s.Scan(); token != LEFT_PARENTHESIS {
-		t.Errorf("%s is not SIGNAL token", lex)
+	if token, lex := s.Scan(); token != LeftParenthesis {
+		t.Errorf("%s is not Signal token", lex)
 	}
-	if token, lex := s.Scan(); token != STRING_TYPE {
-		t.Errorf("%s is not STRING_TYPE token", lex)
+	if token, lex := s.Scan(); token != RightParenthesis {
+		t.Errorf("%s is not Signal token", lex)
 	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "action" {
-		t.Errorf("%s is not IDENTIFIER(action) token", lex)
-	}
-	if token, lex := s.Scan(); token != COMMA {
-		t.Errorf("%s is not COMMA token", lex)
-	}
-	if token, lex := s.Scan(); token != VAR_TYPE {
-		t.Errorf("%s is not VAR_TYPE token", lex)
-	}
-	if token, lex := s.Scan(); token != IDENTIFIER || lex != "actionResult" {
-		t.Errorf("%s is not IDENTIFIER(actionResult) token", lex)
-	}
-	if token, lex := s.Scan(); token != RIGHT_PARENTHESIS {
-		t.Errorf("%s is not SIGNAL token", lex)
-	}
-	if token, lex := s.Scan(); token != NEW_LINE {
-		t.Errorf("%s is not NEW_LINE token", lex)
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
 	}
 
-	if token, lex := s.Scan(); token != RIGHT_CURLY_BRACKET {
-		t.Errorf("%s is not RIGHT_CURLY_BRACKET token", lex)
+	if token, lex := s.Scan(); token != Signal {
+		t.Errorf("%s is not Signal token", lex)
 	}
-	if token, lex := s.Scan(); token != EOF || lex != "" {
-		t.Errorf("%s is not EOF token", lex)
+	if token, lex := s.Scan(); token != Identifier || lex != "actionPerformed" {
+		t.Errorf("%s is not Identifier(actionPerformed) token", lex)
+	}
+	if token, lex := s.Scan(); token != LeftParenthesis {
+		t.Errorf("%s is not Signal token", lex)
+	}
+	if token, lex := s.Scan(); token != StringType {
+		t.Errorf("%s is not StringType token", lex)
+	}
+	if token, lex := s.Scan(); token != Identifier || lex != "action" {
+		t.Errorf("%s is not Identifier(action) token", lex)
+	}
+	if token, lex := s.Scan(); token != Comma {
+		t.Errorf("%s is not Comma token", lex)
+	}
+	if token, lex := s.Scan(); token != VarType {
+		t.Errorf("%s is not VarType token", lex)
+	}
+	if token, lex := s.Scan(); token != Identifier || lex != "actionResult" {
+		t.Errorf("%s is not Identifier(actionResult) token", lex)
+	}
+	if token, lex := s.Scan(); token != RightParenthesis {
+		t.Errorf("%s is not Signal token", lex)
+	}
+	if token, lex := s.Scan(); token != NewLine {
+		t.Errorf("%s is not NewLine token", lex)
+	}
+
+	if token, lex := s.Scan(); token != RightCurlyBracket {
+		t.Errorf("%s is not RightCurlyBracket token", lex)
+	}
+	if token, lex := s.Scan(); token != Eof || lex != "" {
+		t.Errorf("%s is not Eof token", lex)
 	}
 }

@@ -4,40 +4,40 @@ type Token int
 
 const (
 	ILLEGAL Token = iota
-	EOF
-	NEW_LINE
+	Eof
+	NewLine
 
-	IMPORT
-	AS
-	PROPERTY
-	ALIAS
-	READONLY
-	SIGNAL
-	ENUM
+	Import
+	As
+	Property
+	Alias
+	Readonly
+	Signal
+	Enum
 
-	IDENTIFIER
+	Identifier
 
-	STRING_LITERAL
-	DOUBLE_LITERAL
-	INT_LITERAL
+	StringLiteral
+	DoubleLiteral
+	IntLiteral
 
-	BOOL_TYPE
-	DOUBLE_TYPE
-	REAL_TYPE
-	INT_TYPE
-	STRING_TYPE
-	VAR_TYPE
+	BoolType
+	DoubleType
+	RealType
+	IntType
+	StringType
+	VarType
 
-	DOT
-	COMMA
-	COLON
-	SEMICOLON
-	LEFT_PARENTHESIS
-	RIGHT_PARENTHESIS
-	LEFT_CURLY_BRACKET
-	RIGHT_CURLY_BRACKET
+	Dot
+	Comma
+	Colon
+	Semicolon
+	LeftParenthesis
+	RightParenthesis
+	LeftCurlyBracket
+	RightCurlyBracket
 
-	SOLIDUS
+	Solidus
 )
 
 func isWhitespace(ch rune) bool {

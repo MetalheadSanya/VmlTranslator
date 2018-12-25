@@ -38,7 +38,7 @@ func (s *Scanner) Scan() (tok Token, lit string) {
 		s.unread()
 		return s.scanNewLine()
 	} else if isDot(ch) {
-		return DOT, "."
+		return Dot, "."
 	} else if unicode.IsLetter(ch) {
 		s.unread()
 		return s.scanIdentifier()
@@ -52,29 +52,29 @@ func (s *Scanner) Scan() (tok Token, lit string) {
 
 	switch ch {
 	case '.':
-		return DOT, string(ch)
+		return Dot, string(ch)
 	case ',':
-		return COMMA, ","
+		return Comma, ","
 	case eof:
-		return EOF, ""
+		return Eof, ""
 	case '(':
-		return LEFT_PARENTHESIS, "("
+		return LeftParenthesis, "("
 	case ')':
-		return RIGHT_PARENTHESIS, ")"
+		return RightParenthesis, ")"
 	case '{':
-		return LEFT_CURLY_BRACKET, "{"
+		return LeftCurlyBracket, "{"
 	case '}':
-		return RIGHT_CURLY_BRACKET, "}"
+		return RightCurlyBracket, "}"
 	case ';':
-		return SEMICOLON, ";"
+		return Semicolon, ";"
 	case ':':
-		return COLON, ":"
+		return Colon, ":"
 	case '/':
 		s.unread()
 		if s.missComment() {
 			return s.Scan()
 		} else {
-			return SOLIDUS, "/"
+			return Solidus, "/"
 		}
 	}
 
@@ -107,7 +107,7 @@ func (s *Scanner) scanNewLine() (tok Token, lit string) {
 		}
 	}
 
-	return NEW_LINE, buf.String()
+	return NewLine, buf.String()
 }
 
 func (s *Scanner) scanIdentifier() (tok Token, lit string) {
@@ -127,34 +127,34 @@ func (s *Scanner) scanIdentifier() (tok Token, lit string) {
 
 	switch buf.String() {
 	case "import":
-		return IMPORT, buf.String()
+		return Import, buf.String()
 	case "as":
-		return AS, buf.String()
+		return As, buf.String()
 	case "property":
-		return PROPERTY, buf.String()
+		return Property, buf.String()
 	case "alias":
-		return ALIAS, buf.String()
+		return Alias, buf.String()
 	case "readonly":
-		return READONLY, buf.String()
+		return Readonly, buf.String()
 	case "signal":
-		return SIGNAL, buf.String()
+		return Signal, buf.String()
 	case "enum":
-		return ENUM, buf.String()
+		return Enum, buf.String()
 	case "int":
-		return INT_TYPE, buf.String()
+		return IntType, buf.String()
 	case "bool":
-		return BOOL_TYPE, buf.String()
+		return BoolType, buf.String()
 	case "double":
-		return DOUBLE_TYPE, buf.String()
+		return DoubleType, buf.String()
 	case "real":
-		return REAL_TYPE, buf.String()
+		return RealType, buf.String()
 	case "string":
-		return STRING_TYPE, buf.String()
+		return StringType, buf.String()
 	case "var":
-		return VAR_TYPE, buf.String()
+		return VarType, buf.String()
 	}
 
-	return IDENTIFIER, buf.String()
+	return Identifier, buf.String()
 }
 
 func (s *Scanner) scanNumber() (tok Token, lit string) {
@@ -190,9 +190,9 @@ func (s *Scanner) scanNumber() (tok Token, lit string) {
 	if brokenToken {
 		return ILLEGAL, buf.String()
 	} else if wasDot {
-		return DOUBLE_LITERAL, buf.String()
+		return DoubleLiteral, buf.String()
 	} else {
-		return INT_LITERAL, buf.String()
+		return IntLiteral, buf.String()
 	}
 }
 
@@ -224,7 +224,7 @@ func (s *Scanner) scanString() (tok Token, lit string) {
 	}
 
 	if wasQuotationMark {
-		return STRING_LITERAL, buf.String()
+		return StringLiteral, buf.String()
 	} else {
 		return ILLEGAL, buf.String()
 	}
