@@ -53,8 +53,14 @@ func (s *Scanner) Scan() (tok Token, lit string) {
 	switch ch {
 	case '.':
 		return DOT, string(ch)
+	case ',':
+		return COMMA, ","
 	case eof:
 		return EOF, ""
+	case '(':
+		return LEFT_PARENTHESIS, "("
+	case ')':
+		return RIGHT_PARENTHESIS, ")"
 	case '{':
 		return LEFT_CURLY_BRACKET, "{"
 	case '}':
