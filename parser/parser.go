@@ -55,7 +55,7 @@ func (p *Parser) Parse() (*FileStatement, error) {
 			if err != nil {
 				return nil, err
 			}
-			stmt.NamespaceImports = append(stmt.NamespaceImports, *importStmt)
+			stmt.namespaceImports = append(stmt.namespaceImports, importStmt)
 		} else {
 			p.unscan()
 			break
@@ -65,35 +65,46 @@ func (p *Parser) Parse() (*FileStatement, error) {
 	return stmt, nil
 }
 
-func (p *Parser) parseImportStatement() (statement *ImportNamespaceStatement, err error) {
-	stmt := &ImportNamespaceStatement{}
+func (p *Parser) parseImportStatement() (statement ImportStatement, err error) {
+	var stmt ImportStatement
 
 	tok, lit := p.scan()
 	if tok != lexer.Import {
 		return nil, fmt.Errorf("found %q, expected import keyword", lit)
 	}
-	for {
-		tok, lit = p.scan()
-		if tok != lexer.Identifier {
-			return nil, fmt.Errorf("found %q, expected identifier", lit)
-		}
-		stmt.ModuleIdentifier = append(stmt.ModuleIdentifier, lit)
-
-		tok, lit = p.scan()
-		if tok != lexer.Dot {
-			break
-		}
-	}
-	if tok != lexer.DoubleLiteral {
-		return nil, fmt.Errorf("found %q, expected double literal", lit)
-	}
-	version, err := strconv.ParseFloat(lit, 32)
-	if err != nil {
-		return nil, err
-	}
-	stmt.Version = float32(version)
 	tok, lit = p.scan()
+	if tok == lexer.Identifier {
+		namespace := &ImportNamespaceStatement{}
+		for {
+			if tok != lexer.Identifier {
+				return nil, fmt.Errorf("found %q, expected identifier", lit)
+			}
+			namespace.moduleIdentifier = append(namespace.moduleIdentifier, lit)
 
+			tok, lit = p.scan()
+			if tok != lexer.Dot {
+				break
+			}
+			tok, lit = p.scan()
+		}
+		if tok != lexer.DoubleLiteral {
+			return nil, fmt.Errorf("found %q, expected double literal", lit)
+		}
+		version, err := strconv.ParseFloat(lit, 32)
+		if err != nil {
+			return nil, err
+		}
+		namespace.version = float32(version)
+		stmt = namespace
+	} else if tok == lexer.StringLiteral {
+		directory := &ImportDirectoryStatement{}
+		directory.directory = lit
+		stmt = directory
+	} else {
+		return nil, fmt.Errorf("found %q, expected identifier or string literal", lit)
+	}
+
+	tok, lit = p.scan()
 	if tok != lexer.As {
 		p.unscan()
 		return stmt, p.scanNewLineOrSkipEof()
@@ -104,7 +115,7 @@ func (p *Parser) parseImportStatement() (statement *ImportNamespaceStatement, er
 		return nil, fmt.Errorf("found %q, expected identifier", lit)
 	}
 
-	stmt.Qualifier = &lit
+	stmt.setQualifier(&lit)
 
 	return stmt, p.scanNewLineOrSkipEof()
 }
