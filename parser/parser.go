@@ -216,7 +216,11 @@ func (p *Parser) parseExpression() (interface{}, error) {
 			break
 		}
 
-		if tok == lexer.IntLiteral || tok == lexer.StringLiteral || tok == lexer.DoubleLiteral {
+		if tok == lexer.IntLiteral ||
+			tok == lexer.StringLiteral ||
+			tok == lexer.DoubleLiteral ||
+			tok == lexer.True ||
+			tok == lexer.False {
 			var literal interface{}
 			literal, err = p.parseLiteralExpression()
 			if err == nil {

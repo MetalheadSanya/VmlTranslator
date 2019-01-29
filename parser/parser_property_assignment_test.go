@@ -97,8 +97,8 @@ Rectangle {
 		t.Errorf("Incorrect fifth property, expected 'color', take %s", prop5.Property[0])
 	}
 	arg5, ok := prop5.Expression.(*literals.BooleanLiteral)
-	if ok && *arg5 != false {
-		t.Errorf("Incorrect fifth property value, expected 'red', take %t", *arg5)
+	if ok && *arg5 != true {
+		t.Errorf("Incorrect fifth property value, expected 'true', take %t", *arg5)
 	} else if !ok {
 		t.Errorf("Incorrect fifth property type, expected BooleanLiteral")
 	}
