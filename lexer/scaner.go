@@ -148,6 +148,10 @@ func (s *Scanner) scanIdentifier() (tok Token, lit string) {
 		return Signal, buf.String()
 	case "enum":
 		return Enum, buf.String()
+	case "true":
+		return True, buf.String()
+	case "false":
+		return False, buf.String()
 	case "int":
 		return IntType, buf.String()
 	case "bool":

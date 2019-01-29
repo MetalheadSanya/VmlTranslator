@@ -11,6 +11,8 @@ func TestLexerClass(t *testing.T) {
     width: 100.0
     height: 10
     color: "red"
+	enabled: false
+	clip: true
 }`
 	r := strings.NewReader(str)
 	s := lexer.VmlScanner(r)
@@ -59,6 +61,33 @@ func TestLexerClass(t *testing.T) {
 	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
 	}
+
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "enabled" {
+		t.Errorf("%s is not Identifier(enabled) token", lex)
+	}
+	if token, lex := s.Scan(); token != lexer.Colon {
+		t.Errorf("%s is not Colon token", lex)
+	}
+	if token, lex := s.Scan(); token != lexer.False {
+		t.Errorf("%s is not False token", lex)
+	}
+	if token, lex := s.Scan(); token != lexer.NewLine {
+		t.Errorf("%s is not NewLine token", lex)
+	}
+
+	if token, lex := s.Scan(); token != lexer.Identifier || lex != "clip" {
+		t.Errorf("%s is not Identifier(clip) token", lex)
+	}
+	if token, lex := s.Scan(); token != lexer.Colon {
+		t.Errorf("%s is not Colon token", lex)
+	}
+	if token, lex := s.Scan(); token != lexer.True {
+		t.Errorf("%s is not True token", lex)
+	}
+	if token, lex := s.Scan(); token != lexer.NewLine {
+		t.Errorf("%s is not NewLine token", lex)
+	}
+
 	if token, lex := s.Scan(); token != lexer.RightCurlyBracket {
 		t.Errorf("%s is not RightCurlyBracket token", lex)
 	}

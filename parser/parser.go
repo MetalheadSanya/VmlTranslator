@@ -287,7 +287,12 @@ func (p *Parser) parseLiteralExpression() (interface{}, error) {
 		}
 		lit := literals.FloatingPointerLiteral(val)
 		stmt = &lit
-		// TODO: bool
+	case lexer.True:
+		lit := literals.BooleanLiteral(true)
+		stmt = &lit
+	case lexer.False:
+		lit := literals.BooleanLiteral(false)
+		stmt = &lit
 	}
 
 	if stmt == nil {

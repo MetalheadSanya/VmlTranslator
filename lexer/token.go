@@ -14,6 +14,8 @@ const (
 	Readonly
 	Signal
 	Enum
+	True
+	False
 
 	Identifier
 
