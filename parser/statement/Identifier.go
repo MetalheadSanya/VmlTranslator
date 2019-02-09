@@ -1,3 +1,3 @@
 package statement
 
-type Identifier string
+type Identifier = string

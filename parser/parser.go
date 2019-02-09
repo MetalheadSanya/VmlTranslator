@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"container/list"
 	"fmt"
 	"github.com/MetalheadSanya/VmlTranslator/lexer"
 	"github.com/MetalheadSanya/VmlTranslator/parser/literals"
@@ -136,8 +137,8 @@ func (p *Parser) parseImportStatement() (interface{}, error) {
 	return stmt, p.scanNewLineOrSkipEof()
 }
 
-func (p *Parser) parseRootClassStatement() (*statement.RootClass, error) {
-	stmt := &statement.RootClass{}
+func (p *Parser) parseRootClassStatement() (*statement.Class, error) {
+	stmt := statement.NewClass()
 	tok, lex := p.scan()
 
 	if tok != lexer.Identifier {
@@ -152,19 +153,52 @@ func (p *Parser) parseRootClassStatement() (*statement.RootClass, error) {
 
 	for {
 		tok, lex = p.scanIgnoreNewLine()
-		if tok != lexer.Identifier {
+		if tok == lexer.Identifier {
+			p.unscan()
+			path, err := p.parsePath()
+			if err != nil {
+				return nil, err
+			}
+			tok, lex = p.scan()
+			if tok == lexer.Colon {
+				expr, err := p.parseExpression()
+
+				if err != nil {
+					return nil, err
+				}
+				prop := &statement.PropertyAssignment{}
+				prop.Property = path
+				prop.Expression = expr
+
+				stmt.PropertyAssignments = append(stmt.PropertyAssignments, *prop)
+			} else if tok == lexer.LeftCurlyBracket {
+				p.unscan()
+				object, err := p.parseObjectBody()
+
+				if err != nil {
+					return nil, err
+				}
+				object.Name = path
+
+				stmt.Children.PushBack(object)
+			} else {
+				return nil, fmt.Errorf("expected ':' or '{', take %q", lex)
+			}
+		} else if tok == lexer.Property || tok == lexer.Default {
+			p.unscan()
+			prop, err := p.parseDefinePropertyStatement()
+			if err != nil {
+				return nil, err
+			}
+			stmt.Properties.PushBack(prop)
+		} else {
 			break
-		}
-		p.unscan()
-		expr, err := p.parsePropertyAssignmentStatement()
-		if err == nil {
-			stmt.PropertyAssignments = append(stmt.PropertyAssignments, *expr)
-			continue
 		}
 	}
 
 	if tok != lexer.RightCurlyBracket {
-		return nil, fmt.Errorf("found %q, expexted '}'", lex)
+		return nil, fmt.Errorf("expected '}', statement.Identifier, 'default' or 'property'"+
+			", found %q", lex)
 	}
 
 	return stmt, nil
@@ -176,19 +210,12 @@ func (p *Parser) parsePropertyAssignmentStatement() (*statement.PropertyAssignme
 	var tok lexer.Token
 	var lex string
 
-	for {
-		tok, lex = p.scan()
-		if tok != lexer.Identifier {
-			return nil, fmt.Errorf("found %q, expexted '.'", lex)
-		}
-		stmt.Property = append(stmt.Property, lex)
+	path, err := p.parsePath()
 
-		tok, lex = p.scan()
-		if tok != lexer.Dot {
-			p.unscan()
-			break
-		}
+	if err != nil {
+		return nil, err
 	}
+	stmt.Property = path
 
 	tok, lex = p.scan()
 	if tok != lexer.Colon {
@@ -205,6 +232,57 @@ func (p *Parser) parsePropertyAssignmentStatement() (*statement.PropertyAssignme
 	return stmt, nil
 }
 
+func (p *Parser) parseDefinePropertyStatement() (*statement.Property, error) {
+	stmt := &statement.Property{}
+
+	var tok lexer.Token
+	var lex string
+
+	tok, lex = p.scan()
+	if tok == lexer.Default {
+		stmt.IsDefault = true
+		tok, lex = p.scan()
+	} else {
+		stmt.IsDefault = false
+	}
+
+	if tok != lexer.Property {
+		return nil, fmt.Errorf("found %q, expeced property keyword", lex)
+	}
+
+	t, err := p.parseTypeStatement()
+	if err != nil {
+		return nil, err
+	}
+
+	stmt.PropertyType = t
+
+	tok, lex = p.scan()
+	if tok != lexer.Identifier {
+		return nil, fmt.Errorf("found %q, expeced identifier", lex)
+	}
+
+	stmt.PropertyName = lex
+
+	tok, lex = p.scan()
+	if tok != lexer.Colon {
+		p.unscan()
+		return stmt, nil
+	}
+
+	expr, err := p.parseExpression()
+
+	if err != nil {
+		return nil, err
+	}
+
+	stmt.PropertyValue = expr
+
+	err = p.scanNewLineOrSkipEof()
+
+	return stmt, err
+}
+
 func (p *Parser) parseExpression() (interface{}, error) {
 	var stmt interface{}
 	var err error
@@ -212,7 +290,17 @@ func (p *Parser) parseExpression() (interface{}, error) {
 	for {
 		tok, _ := p.scan()
 		p.unscan()
-		if tok == lexer.NewLine || tok == lexer.Eof || tok == lexer.Comma || tok == lexer.RightParenthesis {
+		if tok == lexer.NewLine ||
+			tok == lexer.Eof ||
+			tok == lexer.Comma ||
+			tok == lexer.RightParenthesis ||
+			tok == lexer.RightSquareBracket ||
+			tok == lexer.RightCurlyBracket {
+			break
+		}
+
+		if tok == lexer.Semicolon {
+			p.scan()
 			break
 		}
 
@@ -223,6 +311,15 @@ func (p *Parser) parseExpression() (interface{}, error) {
 			tok == lexer.False {
 			var literal interface{}
 			literal, err = p.parseLiteralExpression()
+			if err == nil {
+				stmt = literal
+				continue
+			}
+		}
+
+		if tok == lexer.LeftSquareBracket {
+			var literal interface{}
+			literal, err = p.parseListLiteralExpression()
 			if err == nil {
 				stmt = literal
 				continue
@@ -307,11 +404,45 @@ func (p *Parser) parseLiteralExpression() (interface{}, error) {
 	return stmt, nil
 }
 
+func (p *Parser) parseListLiteralExpression() (literals.ListLiteral, error) {
+	stmt := list.New()
+
+	tok, lex := p.scan()
+	if tok != lexer.LeftSquareBracket {
+		return nil, fmt.Errorf("expected '[' take %q", lex)
+	}
+
+	for {
+		tok, lex = p.scanIgnoreNewLine()
+		if tok == lexer.RightSquareBracket {
+			return stmt, nil
+		}
+		p.unscan()
+		element, err := p.parseExpression()
+		if err != nil {
+			return nil, err
+		}
+		stmt.PushBack(element)
+		tok, lex = p.scanIgnoreNewLine()
+		if tok == lexer.Comma {
+			p.scanIgnoreNewLine()
+			p.unscan()
+			continue
+		}
+		if tok == lexer.RightSquareBracket {
+			break
+		}
+
+		return nil, fmt.Errorf("expected ']' or ',', take %q", lex)
+	}
+
+	return stmt, nil
+}
+
 func (p *Parser) parseIdentifier() (*statement.Identifier, error) {
 	tok, lex := p.scan()
 	if tok == lexer.Identifier {
-		ident := statement.Identifier(lex)
-		return &ident, nil
+		return &lex, nil
 	}
 	p.unscan()
 	return nil, fmt.Errorf("not found identifier")
@@ -373,6 +504,128 @@ func (p *Parser) parseFunctionCallExpression() (*statement.FunctionCallExpressio
 			break
 		}
 		return nil, fmt.Errorf("expected ',' or ')' or expression")
+	}
+
+	return stmt, nil
+}
+
+func (p *Parser) parseTypeStatement() (interface{}, error) {
+	tok, lex := p.scan()
+
+	if tok != lexer.Identifier &&
+		tok != lexer.StringType &&
+		tok != lexer.VarType &&
+		tok != lexer.DoubleType &&
+		tok != lexer.BoolType &&
+		tok != lexer.ListType {
+		return nil, fmt.Errorf("expected type, take %q", lex)
+	}
+
+	name := lex
+
+	if tok == lexer.Identifier || tok == lexer.ListType {
+		basicType := tok
+		tok, lex = p.scan()
+
+		if tok == lexer.LessThanSign {
+			stmt := &statement.GenericType{}
+			childType, err := p.parseTypeStatement()
+			if err != nil {
+				return nil, err
+			}
+			stmt.Container = name
+			stmt.Element = childType
+			tok, lex = p.scan()
+			if tok != lexer.MoreThanSign {
+				return nil, fmt.Errorf("expected '>', take %q", lex)
+			}
+			return stmt, nil
+		} else if basicType == lexer.ListType {
+			return nil, fmt.Errorf("expected '<', take %q", lex)
+		} else {
+			p.unscan()
+			return &name, nil
+		}
+	} else {
+		return &name, nil
+	}
+}
+
+func (p *Parser) parseObjectBody() (*statement.Object, error) {
+	stmt := statement.NewObject()
+
+	tok, lex := p.scan()
+
+	if tok != lexer.LeftCurlyBracket {
+		return nil, errorf(lexer.LeftCurlyBracket, lex)
+	}
+
+	for {
+		tok, lex = p.scanIgnoreNewLine()
+
+		if tok == lexer.Identifier {
+			p.unscan()
+		} else if tok == lexer.RightCurlyBracket {
+			break
+		}
+
+		path, err := p.parsePath()
+		if err != nil {
+			return nil, err
+		}
+
+		tok, lex = p.scan()
+		if tok == lexer.Colon {
+			expr, err := p.parseExpression()
+
+			if err != nil {
+				return nil, err
+			}
+			prop := &statement.PropertyAssignment{}
+			prop.Property = path
+			prop.Expression = expr
+
+			stmt.PropertyAssignments.PushBack(prop)
+		} else if tok == lexer.LeftCurlyBracket {
+			p.unscan()
+			child, err := p.parseObjectBody()
+
+			if err != nil {
+				return nil, err
+			}
+
+			child.Name = path
+			stmt.Children.PushBack(child)
+		} else {
+			return nil, errorf(lexer.Colon, lex)
+		}
+	}
+
+	return stmt, nil
+}
+
+func errorf(expectedToken lexer.Token, lex string) error {
+	return fmt.Errorf("expected %#v, take %q", expectedToken, lex)
+}
+
+func (p *Parser) parsePath() (*list.List, error) {
+	var tok lexer.Token
+	var lex string
+
+	stmt := list.New()
+	for {
+		tok, lex = p.scan()
+		if tok != lexer.Identifier {
+			return nil, errorf(lexer.Identifier, lex)
+		}
+		ident := lex
+		stmt.PushBack(&ident)
+
+		tok, lex = p.scan()
+		if tok != lexer.Dot {
+			p.unscan()
+			break
+		}
 	}
 
 	return stmt, nil

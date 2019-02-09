@@ -1,6 +1,8 @@
 package statement
 
+import "container/list"
+
 type PropertyAssignment struct {
-	Property   PropertyPath
+	Property   *list.List
 	Expression interface{}
 }

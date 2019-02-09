@@ -166,6 +166,8 @@ func (s *Scanner) scanIdentifier() (tok Token, lit string) {
 		return VarType, buf.String()
 	case "list":
 		return ListType, buf.String()
+	case "default":
+		return Default, buf.String()
 	}
 
 	return Identifier, buf.String()

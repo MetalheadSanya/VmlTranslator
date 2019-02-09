@@ -8,7 +8,7 @@ import (
 
 func TestLexerTypes(t *testing.T) {
 	str := `Rectangle {
-    property int intProperty
+    default property int intProperty
     property string stringProperty
 	property bool boolProperty
 	property double doubleProperty
@@ -25,6 +25,9 @@ func TestLexerTypes(t *testing.T) {
 	}
 	if token, lex := s.Scan(); token != lexer.NewLine {
 		t.Errorf("%s is not NewLine token", lex)
+	}
+	if token, lex := s.Scan(); token != lexer.Default {
+		t.Errorf("%s is not Default token", lex)
 	}
 	if token, lex := s.Scan(); token != lexer.Property {
 		t.Errorf("%s is not Property token", lex)

@@ -1,6 +1,6 @@
 package lexer
 
-type Token int
+type Token = int
 
 const (
 	ILLEGAL Token = iota
@@ -9,6 +9,7 @@ const (
 
 	Import
 	As
+	Default
 	Property
 	Alias
 	Readonly
