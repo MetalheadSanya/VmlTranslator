@@ -152,7 +152,7 @@ func (w Walker) visitExpression(expr interface{}) error {
 	case *literals.BooleanLiteral:
 		w.listener.EnterBoolean(e)
 		w.listener.ExitBoolean(e)
-	case *literals.ListLiteral:
+	case literals.ListLiteral:
 		w.listener.EnterList(e)
 		iter := e.Front()
 		for iter != nil {

@@ -32,6 +32,6 @@ type Listener interface {
 	ExitString(literal *literals.StringLiteral)
 	EnterBoolean(literal *literals.BooleanLiteral)
 	ExitBoolean(literal *literals.BooleanLiteral)
-	EnterList(literal *literals.ListLiteral)
-	ExitList(literal *literals.ListLiteral)
+	EnterList(literal literals.ListLiteral)
+	ExitList(literal literals.ListLiteral)
 }
