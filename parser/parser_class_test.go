@@ -17,7 +17,7 @@ func TestParserClassLine(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	classStmt := stmt.ClassStatement
+	classStmt := stmt.Class
 	if classStmt.Name != "Rect" {
 		t.Errorf("Incorrect class name, expected Rect, take %q", classStmt.Name)
 		return
@@ -34,7 +34,7 @@ func TestParserClass(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	classStmt := stmt.ClassStatement
+	classStmt := stmt.Class
 	if classStmt.Name != "Text" {
 		t.Errorf("Incorrect class name, expected Text, take %q", classStmt.Name)
 		return
@@ -57,7 +57,7 @@ Rect {
 		t.Error(err)
 		return
 	}
-	class := stmt.ClassStatement
+	class := stmt.Class
 	if class.Name != "Rect" {
 		t.Errorf("Incorrect class class parent, expected 'Rectangle', take %s", class.Name)
 	}
@@ -75,7 +75,7 @@ Rectangle { width: 100; height: 100; color: "red"; enabled: false; clip: true }`
 		t.Error(err)
 		return
 	}
-	class := stmt.ClassStatement
+	class := stmt.Class
 	if class.Name != "Rectangle" {
 		t.Errorf("Incorrect class class parent, expected 'Rectangle', take %s", class.Name)
 	}
@@ -183,7 +183,7 @@ Rectangle {
 		t.Error(err)
 		return
 	}
-	class := stmt.ClassStatement
+	class := stmt.Class
 	if class.Name != "Rectangle" {
 		t.Errorf("Incorrect class class parent, expected 'Rectangle', take %s", class.Name)
 	}
@@ -258,7 +258,7 @@ Rect {
 		t.Error(err)
 		return
 	}
-	classStmt := stmt.ClassStatement
+	classStmt := stmt.Class
 	if classStmt.Name != "Rect" {
 		t.Errorf("Incorrect class name, expected Rect, take %q", classStmt.Name)
 		return
@@ -508,7 +508,7 @@ Rect {
 		t.Error(err)
 		return
 	}
-	classStmt := stmt.ClassStatement
+	classStmt := stmt.Class
 	if classStmt.Name != "Rect" {
 		t.Errorf("Incorrect class name, expected Rect, take %q", classStmt.Name)
 		return

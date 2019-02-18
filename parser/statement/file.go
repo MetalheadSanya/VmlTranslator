@@ -1,6 +1,6 @@
 package statement
 
 type File struct {
-	NamespaceImports []interface{}
-	ClassStatement   Class
+	Imports []interface{}
+	Class   Class
 }

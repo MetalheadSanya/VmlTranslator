@@ -58,14 +58,14 @@ func (p *Parser) Parse() (*statement.File, error) {
 			if err != nil {
 				return nil, err
 			}
-			stmt.NamespaceImports = append(stmt.NamespaceImports, importStmt)
-		} else if tok == lexer.Identifier && stmt.ClassStatement.Name == "" {
+			stmt.Imports = append(stmt.Imports, importStmt)
+		} else if tok == lexer.Identifier && stmt.Class.Name == "" {
 			p.unscan()
 			classStmt, err := p.parseRootClassStatement()
 			if err != nil {
 				return nil, err
 			}
-			stmt.ClassStatement = *classStmt
+			stmt.Class = *classStmt
 		} else {
 			p.unscan()
 			break

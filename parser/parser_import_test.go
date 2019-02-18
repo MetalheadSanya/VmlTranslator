@@ -16,12 +16,12 @@ func TestParserImportModule(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	namespaceImportCount := len(stmt.NamespaceImports)
+	namespaceImportCount := len(stmt.Imports)
 	if namespaceImportCount != 1 {
 		t.Errorf("Incorrect import statements count, expected 1, take %d", namespaceImportCount)
 		return
 	}
-	importStmt := stmt.NamespaceImports[0].(*statement.ImportNamespace)
+	importStmt := stmt.Imports[0].(*statement.ImportNamespace)
 	moduleIdentifierCount := len(importStmt.ModuleIdentifier)
 	if moduleIdentifierCount != 1 {
 		t.Errorf("Incorrect module identifier uri, expected 1, take %d", moduleIdentifierCount)
@@ -50,12 +50,12 @@ func TestParserImportModuleFull(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	namespaceImportCount := len(stmt.NamespaceImports)
+	namespaceImportCount := len(stmt.Imports)
 	if namespaceImportCount != 1 {
 		t.Errorf("Incorrect import statements count, expected 1, take %d", namespaceImportCount)
 		return
 	}
-	importStmt := stmt.NamespaceImports[0].(*statement.ImportNamespace)
+	importStmt := stmt.Imports[0].(*statement.ImportNamespace)
 	moduleIdentifierCount := len(importStmt.ModuleIdentifier)
 	if moduleIdentifierCount != 2 {
 		t.Errorf("Incorrect module identifier uri, expected 2, take %d", moduleIdentifierCount)
@@ -88,12 +88,12 @@ func TestParserImportDirectory(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	namespaceImportCount := len(stmt.NamespaceImports)
+	namespaceImportCount := len(stmt.Imports)
 	if namespaceImportCount != 1 {
 		t.Errorf("Incorrect import statements count, expected 1, take %d", namespaceImportCount)
 		return
 	}
-	importStmt := stmt.NamespaceImports[0].(*statement.ImportDirectory)
+	importStmt := stmt.Imports[0].(*statement.ImportDirectory)
 	if importStmt.Directory != "UIKit" {
 		t.Errorf("Incorrect directory, expected UIKit, take %s", importStmt.Directory)
 		return
@@ -113,12 +113,12 @@ func TestParserImportDirectoryFull(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	namespaceImportCount := len(stmt.NamespaceImports)
+	namespaceImportCount := len(stmt.Imports)
 	if namespaceImportCount != 1 {
 		t.Errorf("Incorrect import statements count, expected 1, take %d", namespaceImportCount)
 		return
 	}
-	importStmt := stmt.NamespaceImports[0].(*statement.ImportDirectory)
+	importStmt := stmt.Imports[0].(*statement.ImportDirectory)
 	if importStmt.Directory != "UIKit" {
 		t.Errorf("Incorrect directory, expected UIKit, take %s", importStmt.Directory)
 		return
@@ -140,12 +140,12 @@ import QtQuick 2.0
 		t.Error(err)
 		return
 	}
-	namespaceImportCount := len(stmt.NamespaceImports)
+	namespaceImportCount := len(stmt.Imports)
 	if namespaceImportCount != 2 {
 		t.Errorf("Incorrect import statements count, expected 2, take %d", namespaceImportCount)
 		return
 	}
-	dirStmt := stmt.NamespaceImports[0].(*statement.ImportDirectory)
+	dirStmt := stmt.Imports[0].(*statement.ImportDirectory)
 	if dirStmt.Directory != "UIKit" {
 		t.Errorf("Incorrect directory, expected UIKit, take %s", dirStmt.Directory)
 		return
@@ -154,7 +154,7 @@ import QtQuick 2.0
 		t.Errorf("Incorrect qualifier, expected UI, take %q", *dirStmt.Qualifier)
 		return
 	}
-	namespaceStmt := stmt.NamespaceImports[1].(*statement.ImportNamespace)
+	namespaceStmt := stmt.Imports[1].(*statement.ImportNamespace)
 	moduleIdentifierCount := len(namespaceStmt.ModuleIdentifier)
 	if moduleIdentifierCount != 1 {
 		t.Errorf("Incorrect module identifier uri, expected 1, take %d", moduleIdentifierCount)
